@@ -21,5 +21,25 @@ pageEncoding="UTF-8"%>
         <input type= "text" name ="name">
         <input type= "submit" value="Add!">
     </form>
+
+    <br>
+    <br>
+    <br>
+
+        <table border=1pt>
+            <tr>
+                <th>Name:</th>
+            </tr>
+            <tr>
+            <c:forEach items="${categories}" var="category">            
+                <td>${category.name}</td>
+            </tr>
+            </c:forEach>   
+        </table>
+    
+    <br>
+    <br>
+    <br>
+    <a href="/newProduct">Add Product</a>
 </body>
 </html>

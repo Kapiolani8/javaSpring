@@ -15,7 +15,22 @@ pageEncoding="UTF-8"%>
 </head>
 
 <body>
-    <h1>Product Info</h1>
-    
+    <h1><c:out value="${product.name}"/></h1>
+    <br>
+    <form action="/join/${product.id}" method="post">
+    <select name="category">
+        <c:forEach items="${categoriesAll}" var="catAll">
+        <option value="${catAll.id}">
+           ${catAll.name} 
+        </option>
+    </c:forEach>
+    </select>
+        <input type="submit" value="submit">
+    </form>    
+
+    <c:forEach items="${product.getCategory()}" var="categories">
+        <p>${categories.name}</p> 
+    </c:forEach>
+
 </body>
 </html>

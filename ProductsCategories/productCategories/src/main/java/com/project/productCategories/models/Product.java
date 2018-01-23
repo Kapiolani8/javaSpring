@@ -1,5 +1,6 @@
 package com.project.productCategories.models;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -34,10 +35,10 @@ public class Product{
 	)
 	private List<Category> categories;
 
-	@Size(min=2, max = 50, message = "Name must be longer than 2 characters.")
+	@Size(min=2, max = 30, message = "Name must be longer than 2 characters.")
 	private String name;
 	
-	@Size(min=2, max = 50, message = "Descriptions must be longer than 2 characters.")
+	@Size(min=2, max = 30, message = "Descriptions must be longer than 2 characters.")
 	private String description;
 	
 	@NotNull(message = "You must enter a price.")
@@ -77,7 +78,7 @@ public class Product{
 	// 		return category;
 	// 	}
 
-	public List getCategory(){
+	public List<Category> getCategory(){
 		return categories;
 	}
 	// Member variables and annotations go here.
@@ -111,6 +112,7 @@ public class Product{
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+	
 	
 	// Setters and Getters go here
 	

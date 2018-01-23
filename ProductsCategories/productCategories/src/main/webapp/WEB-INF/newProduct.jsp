@@ -21,9 +21,34 @@ pageEncoding="UTF-8"%>
         <input type= "text" name ="name">
         <label>Description:</label>
         <input type= "text" name ="description">
-        <label>Price:</label>
+        <label>Price $:</label>
         <input type= "text" name ="price">
         <input type= "submit" value="Add!">
     </form>
+
+    <br>
+    <br>
+    <br>
+
+        <table border=1pt>
+            <tr>
+               
+                <th>Name:</th>
+                <th>Description:</th>
+                <th>Price:</th>
+            </tr>
+            <tr>
+            <c:forEach items="${products}" var="product">            
+                <td><a href="/displayInfo/${product.id}">${product.name}</a></td>
+                <td>${product.description}</td>
+                <td>$${product.price}</td>
+                         
+            </tr>
+            </c:forEach>   
+        </table>
+    <br>
+    <br>
+    <br>
+    <a href="/newCategory">Add Category</a>
 </body>
 </html>

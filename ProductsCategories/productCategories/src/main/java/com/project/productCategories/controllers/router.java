@@ -1,6 +1,7 @@
 package com.project.productCategories.controllers;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -35,13 +36,14 @@ public class router{
 	}
 	
 	@RequestMapping("/newProduct")
-	public String newProduct(){
+	public String newProduct(Model model){
 		List<Product> product = productService.all();
+		model.addAttribute("products", product);
 		return "newProduct";
 	}	
 
 	@PostMapping("/addProduct")
-	public String addProduct(@RequestParam(value="name") String name, @RequestParam(value="description") String description, @RequestParam(value="price") float price){
+	public String addProduct(@Valid @RequestParam(value="name") String name, @RequestParam(value="description") String description, @RequestParam(value="price") float price){
 		System.out.println("*************"+price);
 		Product product = new Product(name, description, price);
 		productService.create(product);
@@ -49,7 +51,9 @@ public class router{
 	}
 
 	@RequestMapping("/newCategory")
-	public String newCategory(){
+	public String newCategory(Model model){
+		List<Category> category = categoryService.all();
+		model.addAttribute("categories", category);
 		return "newCategory";
 	}	
 
@@ -64,8 +68,30 @@ public class router{
 	public String displayInfo(@PathVariable("id")long id, Model model){
 		Product product = productService.findById(id);
 		List<Category> categories = product.getCategory();
+		List<Category> categoriesAll = categoryService.all();
+		model.addAttribute("categories", categories);
+		model.addAttribute("categoriesAll", categoriesAll);
 		model.addAttribute("product", product);
+		model.addAttribute("product", productService.findById(id));
+		model.addAttribute("categories", categoryService.all());
+		// ArrayList<Category> selectedCategories = 
 		return "displayInfo";
 	}
 
+	@PostMapping("/join/{id}")
+	public String join(@PathVariable("id") long id, @RequestParam(value="category") long categoryId){
+		Product product = productService.findById(id);
+		List<Category> kittykatlicklick = product.getCategory();
+		Category category = categoryService.findById(categoryId);
+		kittykatlicklick.add(category);
+		productService.edit(product);
+		return "redirect:/displayInfo/" + id; //use "+id"(DO NOT USE "/{id}" in the return "redirect") when you're trying to call the foreign keys set for both tables.
+	} 
+
+
+	@RequestMapping("/errors")
+	public String errors(RedirectAttributes redirectAttributes){
+		redirectAttributes.addFlashAttribute("errors", "Too long!!");
+		return "redirect:/";
+	}
 }

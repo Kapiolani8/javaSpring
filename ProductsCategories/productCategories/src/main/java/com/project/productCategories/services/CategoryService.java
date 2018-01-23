@@ -34,7 +34,11 @@ public class CategoryService {
 	
 	public Category findById(long id){
 		return categoryRepo.findOne(id);
-				}
+		}
+
+
+	public ArrayList<Category> all(){
+		return(ArrayList<Category>)categoryRepo.findAll();
 	}
-	
+}
 	// Crud methods to act on services go here.
